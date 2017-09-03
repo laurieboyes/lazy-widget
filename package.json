@@ -1,0 +1,8 @@
+{
+  "name": "lazy-widget",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "aws-sdk": "^2.97.0"
+  }
+}
