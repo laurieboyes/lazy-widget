@@ -47,6 +47,10 @@ provider:
      Action:
        - "dynamodb:Scan"
      Resource: "arn:aws:dynamodb:eu-west-1:846411951695:table/Planks"
+   - Effect: "Allow"
+     Action:
+       - "dynamodb:PutItem"
+     Resource: "arn:aws:dynamodb:eu-west-1:846411951695:table/Planks"
 
 # you can define service wide environment variables here
 #  environment:
@@ -68,6 +72,16 @@ functions:
       - http:
           path: tables/{tableName}
           method: get
+          request:
+            parameters:
+              paths:
+                tableName: true
+  add-stuff:
+    handler: functions/add-stuff.handle
+    events:
+      - http:
+          path: tables/{tableName}
+          method: post
           request:
             parameters:
               paths:
