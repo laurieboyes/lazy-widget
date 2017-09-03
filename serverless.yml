@@ -42,6 +42,12 @@ provider:
 #            - "Ref" : "ServerlessDeploymentBucket"
 #            - "/*"
 
+  iamRoleStatements:
+   - Effect: "Allow"
+     Action:
+       - "dynamodb:Scan"
+     Resource: "arn:aws:dynamodb:eu-west-1:846411951695:table/Planks"
+
 # you can define service wide environment variables here
 #  environment:
 #    variable1: value1
@@ -58,6 +64,14 @@ provider:
 functions:
   get-stuff:
     handler: functions/get-stuff.handle
+    events:
+      - http:
+          path: tables/{tableName}
+          method: get
+          request:
+            parameters:
+              paths:
+                tableName: true
 
 
 #    The following are a few example events you can configure

@@ -4,13 +4,14 @@ const documentClient = new AWS.DynamoDB.DocumentClient();
 
 module.exports.handle = (event, context, callback) => {
 
-	const tableName = 'Planks'
+	const tableName = event.pathParameters.tableName;
+	console.log('Scanning table ' + tableName);
 
 	documentClient.scan({
 		TableName: tableName
 	}, (err, data) => {
 		if (err) {
-			callback(null, err);
+			callback(err);
 		} else {
 			const response = {
 				statusCode: 200,
