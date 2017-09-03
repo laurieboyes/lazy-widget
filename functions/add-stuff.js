@@ -12,8 +12,8 @@ module.exports.handle = (event, context, callback) => {
 	documentClient.put({
 		TableName: tableName,
 		Item: {
-			dateTime: date.getTime(),
-			isoDateTime: date.toISOString()
+			eventDateTime: date.getTime(),
+			eventIsoDateTime: date.toISOString()
 		}
 	}, (err) => {
 		if (err) {

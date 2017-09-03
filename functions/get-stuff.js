@@ -4,11 +4,20 @@ const documentClient = new AWS.DynamoDB.DocumentClient();
 
 module.exports.handle = (event, context, callback) => {
 
-	const tableName = event.pathParameters.tableName;
-	console.log('Scanning table ' + tableName);
+	const tableName = event.pathParameters && event.pathParameters.tableName;
+	const sinceDays = event.queryStringParameters && event.queryStringParameters.sinceDays || 7;
+	console.log(`Scanning table ${tableName} and filterting for events within the previous ${sinceDays} days`);
+
+	const sinceDate = new Date();
+	sinceDate.setDate(sinceDate.getDate() - sinceDays)
+	const since = sinceDate.getTime();
 
 	documentClient.scan({
-		TableName: tableName
+		TableName: tableName,
+		FilterExpression: 'eventDateTime > :since',
+		ExpressionAttributeValues: {
+			':since': since
+		}
 	}, (err, data) => {
 		if (err) {
 			callback(err);
