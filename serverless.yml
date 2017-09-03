@@ -19,6 +19,7 @@ service: lazy-widget
 
 provider:
   name: aws
+  region: 'eu-west-1'
   runtime: nodejs6.10
 
 # you can overwrite defaults here
