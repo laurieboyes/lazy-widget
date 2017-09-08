@@ -69,7 +69,7 @@ provider:
 
 functions:
   get-stuff:
-    handler: functions/get-stuff.handle
+    handler: functions/get-stuff/index.handle
     events:
       - http:
           path: tables/{tableName}
@@ -79,7 +79,7 @@ functions:
               paths:
                 tableName: true
   add-stuff:
-    handler: functions/add-stuff.handle
+    handler: functions/add-stuff/index.handle
     events:
       - http:
           path: tables/{tableName}
