@@ -1,6 +1,7 @@
 
 const AWS = require('aws-sdk');
 const documentClient = new AWS.DynamoDB.DocumentClient();
+const createChart = require('./lib/create-chart');
 
 module.exports.handle = (event, context, callback) => {
 
@@ -22,13 +23,27 @@ module.exports.handle = (event, context, callback) => {
 		if (err) {
 			callback(err);
 		} else {
-			const response = {
-				statusCode: 200,
-				body: JSON.stringify({
-					data
-				}),
-			};
-			callback(null, response);
+			if (event.headers.Accept.includes('application/json')) {
+				const response = {
+					statusCode: 200,
+					body: JSON.stringify({
+						data
+					}),
+				};
+				callback(null, response);
+			} else {
+				createChart()
+					.then(chartHtml => {
+						const response = {
+							statusCode: 200,
+							headers: {
+								'Content-Type': 'text/html'
+							},
+							body: chartHtml
+						};
+						callback(null, response);
+					});
+			}
 		}
 	})
 };
