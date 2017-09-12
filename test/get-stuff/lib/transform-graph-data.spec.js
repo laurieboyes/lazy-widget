@@ -1,4 +1,4 @@
-const transformGraphData = require('../../../functions/get-stuff/lib/transform-graph-data');
+const transformGraphData = require('../../../src/functions/get-stuff/lib/transform-graph-data');
 const { expect } = require('chai');
 
 const rawDataFixture = {
@@ -33,9 +33,9 @@ const rawDataFixture = {
 
 describe('Transform graph data', () => {
 	it('should add the counts for each day within the dates given in the parameters, and return the transformed data', () => {
-		const startDayString = '2017-09-03' 
-		const endDayString = '2017-09-08';
-		expect(transformGraphData(startDayString, endDayString, rawDataFixture)).to.deep.equal({
+		const toDate = '2017-09-08';
+		const fromDate = '2017-09-03';
+		expect(transformGraphData(toDate, fromDate, rawDataFixture)).to.deep.equal({
 			labels: [
 				'Su 3/9',
 				'Mo 4/9',
