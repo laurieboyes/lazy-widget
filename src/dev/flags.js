@@ -1,3 +1,3 @@
 module.exports = {
-	'getDummyData': true
+	'getDummyData': false
 };

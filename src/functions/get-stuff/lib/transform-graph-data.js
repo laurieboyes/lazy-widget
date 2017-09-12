@@ -1,6 +1,6 @@
 const moment = require('moment');
 
-module.exports = (toDate, fromDate, { data: { Items: activityPoints } }) => {
+module.exports = (toDate, fromDate, { Items: activityPoints }) => {
 	const numDays = moment(toDate).diff(moment(fromDate), 'days') + 1;
 	console.log('numDays', numDays);
 	const days = [...Array(numDays)].map((_, i) => moment(fromDate).add(i, 'days'));
