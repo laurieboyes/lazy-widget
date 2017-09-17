@@ -4,13 +4,19 @@ const transformGraphData = require('./transform-graph-data');
 const moment = require('moment');
 const devFlags = require('../../../dev/flags');
 
-const styles = `<style>${fs.readFileSync('node_modules/chartist/dist/chartist.min.css', 'utf8')}</style>`;
+const styles = `<style>
+	body {
+		margin: 0
+	}
+${fs.readFileSync('node_modules/chartist/dist/chartist.min.css', 'utf8')}
+</style>`;
 
 module.exports = (data, sinceDays) => {
 
 	const options = {
-		width: 400,
-		height: 200
+		// these are hard coded based on the size of my webpage widget
+		width: 378,
+		height: 194
 	};
 
 	console.log('devFlags.getDummyData', devFlags.getDummyData);
